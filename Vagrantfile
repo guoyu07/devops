@@ -68,4 +68,14 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+
+  config.vm.define "master" do |c|
+      c.vm.network "private_network", ip: "192.168.33.11"
+      c.vm.provision "shell", path: "provision-master.sh"
+  end
+
+  config.vm.define "minion_1" do |c|
+      c.vm.network "private_network", ip: "192.168.33.20"
+      c.vm.provision "shell", path: "provision-minion.sh"
+  end
 end
