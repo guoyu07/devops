@@ -3,7 +3,7 @@
 # exit on any error
 set -e
 
-hostnamectl set-hostname master
+hostnamectl set-hostname ${MASTER_IP}
 
 # Install Salt Master
 #

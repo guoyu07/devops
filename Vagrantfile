@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 $master_ip = ENV['MASTER_IP']
+$minion_ip = ENV['MINION_IP']
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -77,7 +78,11 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "minion_1" do |c|
-      c.vm.network "private_network", ip: "192.168.33.20"
-      c.vm.provision "shell", path: "provision-minion.sh"
+      c.vm.network "private_network", ip: "#{$minion_ip}"
+
+      if ENV['DEVOPS_TEMP'] then
+          script = "#{ENV['DEVOPS_TEMP']}/minion-start.sh"
+          c.vm.provision "shell", path: script
+      end
   end
 end
