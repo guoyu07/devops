@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export MASTER_IP="10.245.2.2"
-export MINION_IP="10.245.2.3"
+export MASTER_IP="192.168.33.31"
+export MINION_IP="192.168.33.32"
 
 if [[ -z ${DEVOPS_TEMP-} ]]; then
     export DEVOPS_TEMP=$(mktemp -d -t devops.XXXXXX)
