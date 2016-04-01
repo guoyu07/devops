@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export MASTER_IP="192.168.33.31"
-export MINION_IP="192.168.33.32"
+export MASTER_IP="10.245.2.2"
+export MINION_IP="10.245.2.3"
 
 if [[ -z ${DEVOPS_TEMP-} ]]; then
     export DEVOPS_TEMP=$(mktemp -d -t devops.XXXXXX)
@@ -9,7 +9,7 @@ if [[ -z ${DEVOPS_TEMP-} ]]; then
 fi
 
 # minion主机需要知晓master等数据，通过初始化脚本来传递。
-# 在vagrant场景，通过provision机制会复制脚本到VM里运行,以完成初始化xx.
+# 在vagrant场景，通过provision机制会复制脚本到VM里运行,以完成初始化.
 (
     echo "#! /bin/bash"
     echo "MASTER_IP='${MASTER_IP}'"
