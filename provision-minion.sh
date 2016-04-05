@@ -3,7 +3,7 @@
 # exit on any error
 set -e
 
-hostnamectl set-hostname minion
+hostnamectl set-hostname ${MINION_NAME}
 
 mkdir -p /etc/salt/minion.d
 cat <<EOF >/etc/salt/minion.d/master.conf
