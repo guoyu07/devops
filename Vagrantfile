@@ -15,12 +15,12 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "centos/7"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -75,7 +75,6 @@ Vagrant.configure(2) do |config|
   config.vm.define "master" do |c|
       c.vm.network "private_network", ip: "#{$master_ip}"
       c.vm.provision "shell", path: "provision-master.sh"
-      c.vm.synced_folder "salt-root", "/srv"
   end
 
   config.vm.define "minion_1" do |c|
