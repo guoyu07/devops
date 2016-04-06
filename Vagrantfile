@@ -75,6 +75,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "master" do |c|
       c.vm.network "private_network", ip: "#{$master_ip}"
       c.vm.provision "shell", path: "provision-master.sh"
+      c.vm.synced_folder "salt-root", "/srv"
   end
 
   config.vm.define "minion_1" do |c|
