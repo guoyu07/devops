@@ -1,0 +1,29 @@
+---
+- name: install git
+  apt: name=git state=present
+
+- name: which git-shell
+  command: "which git-shell"
+  register: which_git_shell
+
+- name: enable git-shell
+  lineinfile:
+      dest: /etc/shells
+      line: "{{ which_git_shell.stdout }}"
+
+- name: add_user git
+  user:
+      name: git
+      shell: "{{ which_git_shell.stdout }}"
+      home: "{{ git_home }}"
+
+- name: copy hooks dir
+  copy:
+      src: "{{ item }}"
+      dest: "{{ git_home }}/"
+      owner: git
+      group: git
+      mode: 0700
+  with_items:
+      - hooks
+      - git-shell-commands

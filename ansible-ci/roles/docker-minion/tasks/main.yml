@@ -1,0 +1,27 @@
+---
+- name: Check if docker repository is already installed.
+  stat: path=/etc/apt/sources.list.d/docker.list
+  register: docker_file
+
+- name: Download docker repository installation script.
+  shell: "curl -sSL https://get.docker.com | sh"
+  when: (docker_file.stat.exists == false)
+
+- name: install docker tsinghua mirror
+  shell: 'echo "deb https://mirrors.tuna.tsinghua.edu.cn/docker/apt/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/docker.list'
+  when: "{{ docker_apt_repo_mirror }}"
+
+- name: install pkg
+  apt: name={{ item }} update_cache=yes cache_valid_time=13600 state=present
+  with_items:
+      - docker-engine
+      - python-pip
+
+- pip: name=docker-py state=present
+
+- name: apply ustc dockerhub mirror
+  template:
+      src: docker-daemon.json.j2
+      dest: /etc/docker/daemon.json
+  when: "{{ docker_hub_mirror }}"
+  notify: restart-docker-engine

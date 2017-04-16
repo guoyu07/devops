@@ -1,0 +1,5 @@
+[docker-minion]
+server
+
+[ci-server]
+server

@@ -1,0 +1,23 @@
+---
+- hosts: docker-minion
+  become: true
+  become_method: sudo
+  vars:
+      docker_apt_repo_mirror: true
+      docker_hub_mirror: true
+  roles:
+      - docker-minion
+
+- hosts: git-server
+  become: true
+  become_method: sudo
+  vars:
+      git_home: /home/git
+  roles:
+      - git
+
+- hosts: ci-server
+  become: true
+  become_method: sudo
+  roles:
+      - jenkins
